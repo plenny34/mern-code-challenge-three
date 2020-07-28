@@ -42,13 +42,31 @@ function postService() {
           debug(error);
         });
     });
+  }
+
+  function createNewPost(title, body, username) {
+    return new Promise((resolve, reject) => {
+      axios.post('http://jsonplaceholder.typicode.com/posts', {
+        title: title,
+        body: body,
+        userId: username
+      })
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((error) => {
+          reject(error);
+          debug(error);
+        });
+    });
 
   }
 
   return {
     getPosts,
     getPostById,
-    getPostsByUser
+    getPostsByUser,
+    createNewPost
   };
 }
 

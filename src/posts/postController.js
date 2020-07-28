@@ -50,11 +50,32 @@ function postController(postService) {
     );
   }
 
+  function getCreatePostPage(req, res) {
+    res.render('createPost', {
+      title: 'Create a New Post'
+    });
+  }
+
+  function createPost(req, res) {
+    const { title, body, user } = req.body;
+
+    (async function create() {
+      const post = await postService.createNewPost(title, body, user);
+      debug(post);
+      res.render('post', {
+        post
+      });
+    }())
+
+  }
+
   return {
     getPosts,
     getPostsHistory,
     getPostById,
-    getPostsByUserId
+    getPostsByUserId,
+    getCreatePostPage,
+    createPost
   };
 }
 
