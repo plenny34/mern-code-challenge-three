@@ -30,9 +30,25 @@ function postService() {
     });
   }
 
+  function getPostsByUser(userId) {
+    debug(`get posts for ${userId}`);
+    return new Promise((resolve, reject) => {
+      axios.get(`http://jsonplaceholder.typicode.com/posts?userId=${userId}`)
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((error) => {
+          reject(error);
+          debug(error);
+        });
+    });
+
+  }
+
   return {
     getPosts,
-    getPostById
+    getPostById,
+    getPostsByUser
   };
 }
 

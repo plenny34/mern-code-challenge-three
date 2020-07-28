@@ -15,7 +15,7 @@ function postController(postService) {
   function getPostsHistory(req, res) {
     (async function getOlderPosts() {
       const posts = await postService.getPosts();
-      res.render('olderPosts', {
+      res.render('postList', {
         title: "Pat's Test Blog",
         posts
       });
@@ -36,10 +36,25 @@ function postController(postService) {
     );
   }
 
+  function getPostsByUserId(req, res) {
+    const { userId } = req.query;
+
+    (async function getPostsUserId() {
+        const posts = await postService.getPostsByUser(userId);
+        debug(posts);
+        res.render('postList', {
+          title: `Blogs by ${userId}`,
+          posts
+        });
+      }()
+    );
+  }
+
   return {
     getPosts,
     getPostsHistory,
-    getPostById
+    getPostById,
+    getPostsByUserId
   };
 }
 
