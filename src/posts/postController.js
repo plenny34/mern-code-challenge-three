@@ -3,7 +3,6 @@ const debug = require('debug')('app:postController');
 function postController(postService) {
   function getPosts(req, res) {
     (async function getAllPosts() {
-      debug(__dirname);
       const posts = await postService.getPosts();
       res.render('postMain', {
         title: "Pat's Test Blog",
@@ -15,7 +14,6 @@ function postController(postService) {
 
   function getPostsHistory(req, res) {
     (async function getOlderPosts() {
-      debug(__dirname);
       const posts = await postService.getPosts();
       res.render('olderPosts', {
         title: "Pat's Test Blog",
